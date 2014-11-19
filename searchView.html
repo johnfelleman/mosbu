@@ -31,7 +31,7 @@
    <body ng-app="awardOptimizer">
         <div ng-controller="criteriaController">
 
-           <div class="jumbotron">
+           <div class="ng-hide jumbotron" ng-hide="toolMode">
               <h2>
                  Award Optimizer<br />
                  <small>
@@ -50,10 +50,6 @@
                <select ng-model="primaryCriterion"
                     ng-options="opt as opt.label for opt in primaryRequirement">
                </select>
-               <div class="ng-hide" ng-show="(primaryCriterion.awardOption === 'equal')">
-                    For your needs, OASIS and MAS are both possible solutions.
-                    Please indicate any additional requirements so that we can refine our recommendation.
-               </div>
                    </div> <!-- panel-body -->
                </div> <!-- panel-default -->
                <div class="ng-hide" ng-show="(primaryCriterion.awardOption === 'equal')">
@@ -62,11 +58,22 @@
                          <h3 class="panel-title">Additional Requirements</h3>
                        </div> <!-- panel-heading -->
                        <div class="panel-body">
+               <div class="ng-hide" ng-show="(primaryCriterion.awardOption === 'equal')">
+                    <p class="bg-info">
+                        For your needs, OASIS and MAS are both possible solutions.
+                        Please indicate any additional requirements so that we can
+                        refine our recommendation.
+                    </p>
+               </div>
                             <div ng-repeat="secReq in secReqs">
                                <div class="checkbox">
                                  <label>
-                                     <input type="checkbox" value="">
-                                     {{secReq.label }}
+                                     <input type="checkbox"
+                                         ng-model="secReq.value"
+                                         ng-true-value="'YES'"
+                                         ng-false-value="'NO'"
+                                         ng-change="checkboxChanged()">
+                                     {{ secReq.label }}
                                  </label>
                               </div> <!-- checkbox -->
                             </div> <!-- ng-repeat -->
@@ -85,17 +92,21 @@
                     For your requirement, we recommend evaluating MAS
                </div>
                <div class="ng-hide" ng-show="(primaryCriterion.awardOption === 'equal')">
-                    For your needs, OASIS and MAS are both possible solutions.
-                    Please indicate any addional requirements so that we can refine our recommendation.
-               </div>
-               <div class="row">
-                    <div class="col-md-2 col-sm-2 col-xs-2">
-                        <h2><span class="label label-default">X</span><h2>
-                    </div> <!-- class="col-md-2 col-sm-2 col-xs-2" -->
-                    <div class="col-md-2 col-sm-1 col-xs-1">
-                        <h2><span class="label label-default">Y</span><h2>
-                    </div> <!-- class="col-md-2 col-sm-2 col-xs-2" -->
-               </div> <!-- class="row" -->
+                   <h3 class="bg-info">Based on your selections we have scored your options.</h3>
+                   <div class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <h4>OASIS</h4>
+                            <h2><span class="label label-default">
+                                {{ oasisScore }}
+                            </span><h2>
+                        </div> <!-- class="col-md-2 col-sm-2 col-xs-2" -->
+                        <div class="col-md-2 col-sm-1 col-xs-2">
+                            <h4>MAS</h4>
+                            <h2><span class="label label-default">
+                                {{ masScore }}
+                            </span><h2>
+                        </div> <!-- class="col-md-2 col-sm-2 col-xs-2" -->
+                   </div> <!-- class="row" -->
                    </div> <!-- panel-body -->
                </div> <!-- panel-default -->
 

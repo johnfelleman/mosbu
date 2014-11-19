@@ -1,4 +1,6 @@
 angular.module('awardOptimizer', []).controller('criteriaController', function($scope) {
+    $scope.toolMode = true;
+
     $scope.primaryRequirement = [
         {
             label: 'Construction or Architect/Engineering under FAR part 36',
@@ -27,41 +29,73 @@ angular.module('awardOptimizer', []).controller('criteriaController', function($
 
     $scope.secReqs = [
         {
-            value: 1,
+            checked: false,
+            value: 'NO',
             label: 'Includes non-commercial services or items',
             oasis: 'best',
             mas: 'ng'
         },
         {
-            value: 2,
+            checked: false,
+            value: 'NO',
             label: 'May include open market items',
             oasis: 'best',
             mas: 'possible'
         },
         {
-            value: 3,
+            checked: false,
+            value: 'NO',
             label: 'Contains or requires a cost reimbursement contract type',
             oasis: 'best',
             mas: 'ng'
         },
         {
-            value: 4,
+            checked: true,
+            value: 'NO',
             label: 'Includes hybrid contract types including cost-type',
             oasis: 'best',
             mas: 'ng'
         },
         {
-            value: 5,
+            checked: false,
+            value: 'NO',
             label: 'Professional Service which includes ancillary goods/services',
             oasis: 'best',
             mas: 'possible'
         },
         {
-            value: 6,
+            checked: false,
+            value: 'NO',
             label: 'Professional services on FFP with no anticipated open market items',
             oasis: 'possible',
             mas: 'best'
         }
     ];
+
+    $scope.oasisScore = 0;
+    $scope.masScore = 0;
+    $scope.oasisInPlay = true;
+    $scope.masInPlay = true;
+
+    // this function recomputes the score for each solution and enables/disables buttons to avoid
+    // impossible combos
+    $scope.checkboxChanged = function() {
+        console.log('click');
+        $scope.oasisScore = 0;
+        $scope.masScore = 0;
+
+        angular.forEach($scope.secReqs, function(req, key, object) {
+            if (req.value === 'YES' && req.mas === 'best') {
+                $scope.masScore++;
+            }
+            if (req.value === 'YES' && req.oasis === 'best') {
+                $scope.oasisScore++;
+            }
+            if (req.oasis === 'ng' && $scope.oasisInPlay === true) {
+            }
+            if (req.oasis === 'ng' && $scope.oasisInPlay === true) {
+            }
+        });
+    };
 
 });
