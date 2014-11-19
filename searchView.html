@@ -10,6 +10,7 @@
 
         <title>Award Optimizer</title>
 
+        <script src="js/angular.min.js"></script>
         <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -27,55 +28,79 @@
       <![endif]-->
    </head>
 
-   <body>
+   <body ng-app="awardOptimizer">
+        <div ng-controller="criteriaController">
 
-   <div class="jumbotron">
-      <h1>
-         Welcome to the Chooser<br />
-         <small>
-            Choose between OASIS and MAS for your award.
-         </small>
-      <h1>
-   </div> <!-- jumbotron -->
+           <div class="jumbotron">
+              <h2>
+                 Award Optimizer<br />
+                 <small>
+                    Prototype digital service recommends OASIS or MAS based on user
+                    needs.
+                 </small>
+              <h2>
+           </div> <!-- jumbotron -->
 
-   <div class="container">
-      <div class="row">
-         <div class="col-md-4">
-            this is OASIS
-         </div>
-         <div class="col-md-4">
-            this is MAS
-         </div>
-      </div>
-   </div>
-   <div class="container">
-      <table class="table">
-        <tr>
-           <td>
-           Primary purpose of requirement is construction or Architect/Engineering under FAR part 36
-           </td>
-           <td>
-           x x x
-           </td>
-        </tr>
-        <tr>
-           <td>
-           Primary purpose of requirement is a product/supply.
-           </td>
-           <td>
-           x x x
-           </td>
-        </tr>
-        <tr>
-           <td>
-           Primary purpose of requirement is for non-professional services (e.g, will primarily utilize Service Contract Act (SCA) employees).
-           </td>
-           <td>
-           x x x
-           </td>
-        </tr>
-      </table>
-   </div> <!-- container -->
+           <div class="container">
+               <div class="panel panel-default">
+                   <div class="panel-heading">
+                     <h3 class="panel-title">Select Primary Requirement</h3>
+                   </div> <!-- panel-heading -->
+                   <div class="panel-body">
+               <select ng-model="primaryCriterion"
+                    ng-options="opt as opt.label for opt in primaryRequirement">
+               </select>
+               <div class="ng-hide" ng-show="(primaryCriterion.awardOption === 'equal')">
+                    For your needs, OASIS and MAS are both possible solutions.
+                    Please indicate any additional requirements so that we can refine our recommendation.
+               </div>
+                   </div> <!-- panel-body -->
+               </div> <!-- panel-default -->
+               <div class="ng-hide" ng-show="(primaryCriterion.awardOption === 'equal')">
+                   <div class="panel panel-default">
+                       <div class="panel-heading">
+                         <h3 class="panel-title">Additional Requirements</h3>
+                       </div> <!-- panel-heading -->
+                       <div class="panel-body">
+                            <div ng-repeat="secReq in secReqs">
+                               <div class="checkbox">
+                                 <label>
+                                     <input type="checkbox" value="">
+                                     {{secReq.label }}
+                                 </label>
+                              </div> <!-- checkbox -->
+                            </div> <!-- ng-repeat -->
+                       </div> <!-- panel-body -->
+                   </div> <!-- panel-default -->
+               </div> <!-- ng-hide -->
+               <div class="panel panel-default">
+                   <div class="panel-heading">
+                     <h3 class="panel-title">Recommendations</h3>
+                   </div> <!-- panel-heading -->
+                   <div class="panel-body">
+               <div class="ng-hide" ng-show="(primaryCriterion.awardOption === 'na')">
+                    Unfortunately neither OASIS nor MAS is a good choice for your requirement.
+               </div>
+               <div class="ng-hide" ng-show="(primaryCriterion.awardOption === 'mas')">
+                    For your requirement, we recommend evaluating MAS
+               </div>
+               <div class="ng-hide" ng-show="(primaryCriterion.awardOption === 'equal')">
+                    For your needs, OASIS and MAS are both possible solutions.
+                    Please indicate any addional requirements so that we can refine our recommendation.
+               </div>
+               <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <h2><span class="label label-default">X</span><h2>
+                    </div> <!-- class="col-md-2 col-sm-2 col-xs-2" -->
+                    <div class="col-md-2 col-sm-1 col-xs-1">
+                        <h2><span class="label label-default">Y</span><h2>
+                    </div> <!-- class="col-md-2 col-sm-2 col-xs-2" -->
+               </div> <!-- class="row" -->
+                   </div> <!-- panel-body -->
+               </div> <!-- panel-default -->
+
+           </div> <!-- class="container" -->
+       <div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -83,12 +108,7 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
     <script src="js/jquery-1.8.3.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/catalog.js"></script>
-    <script src="js/vehicles.js"></script>
-    <script src="js/rulesets.js"></script>
-    <script src="js/entities.js"></script>
-    <script src="js/categories.js"></script>
-    <script src="js/swQuickBuy.js"></script>
+    <script src="js/awardPicker.js"></script>
 </body>
 <footer>
 </footer>
