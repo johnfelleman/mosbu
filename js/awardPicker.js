@@ -1,5 +1,5 @@
 angular.module('awardOptimizer', []).controller('criteriaController', function($scope) {
-    $scope.toolMode = true;
+    $scope.toolMode = false;
 
     $scope.primaryRequirement = [
         {
