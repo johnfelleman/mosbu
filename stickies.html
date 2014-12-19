@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>Stickies</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-core-v1.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets-hall.css" rel="stylesheet">
+
+
+        <!-- Custom styles for this template -->
+        <!-- link href="starter-template.css" rel="stylesheet" -->
+
+   <style>
+   .stickie {
+       width:200px;
+       height:200px;
+       font-size: 28px;
+       positioning: absolute;
+   }
+   .stickie-blue {
+      background-color:rgba(128,128,255,0.5);
+      color:white;
+   }
+   .stickie-hdr {
+       width:100%;
+       height:20px;
+       color:black;
+       font-size: 13px;
+   }
+   .stickie-hdr-glyphicon {
+       margin: 3px;
+   }
+   form-group.stickie {
+       width:95%;
+       height:95%;
+   }
+   .stickie-text {
+       width:95%;
+       height:95%;
+       background-color:rgba(0,0,0,0);
+       color:black;
+       font-size: 13px;
+   }
+   .stickie-toolbar {
+       border:1px solid black;
+   }
+   .stickie-toolbar-hdr {
+       width:100%;
+       background-color:rgba(0,0,0,0);
+       color:black;
+       font-size: 12px;
+   }
+   .stickie-toolbar-btn {
+       background-color:rgba(0,0,0,0);
+       color:black;
+       font-size: 12px;
+   }
+   .stickie-toolbar-hdr {
+       width:100%;
+       background-color:rgba(0,0,0,0);
+       font-size: 14px;
+   }
+   .stickie-blue {
+       background-color:rgba(128,128,255,0.5);
+   }
+   .stickie-darkBlue {
+       background-color:rgba(128,128,255,1.0);
+   }
+   .stickie-pink {
+       background-color:rgba(255,100,128,0.5);
+   }
+   .stickie-yellow {
+       background-color:rgba(255,255,128,0.5);
+   }
+   </style>
+
+   </head>
+   <body ng-app="agStickies">
+        <div id="sticklet-controller" ng-controller="agStickiesController">
+            <div id="sticklet-anchor" ag-sticklet>
+                <div ng-repeat="stickie in agStickies"
+                                class="stickie" data-drag="true" jqyoui-draggable>
+                    <div class="stickie-hdr stickie-{{stickie.color}}">
+                        <span class="glyphicon glyphicon-remove-sign">{{stickie.title}}</span>
+                    </div>
+                    <div>
+                        <form role="form">
+                            <div class="form-group stickie stickie-{{stickie.color}}">
+                                <textarea class="stickie-text"
+                                        ng-change="iChanged()">
+                                {{stickie.contents}}
+                                </textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+            <div ng-hide="true"><ag-sticklet></ag-sticklet></div>
+            <div data-drag="true" jqyoui-draggable>
+                <span id="sticklet-toolbar" class="btn-group btn-group-lg" role="group">
+                  <button type="button"
+                      class="btn btn-default stickie-toolbar-btn stickie-yellow"
+                          data-ag-title="New Yeller"
+                          ng-click="newStickie( { color: 'yellow' } )">
+                  </button>
+                    
+                  <button type="button"
+                      class="btn btn-default stickie-toolbar-btn stickie-blue"
+                          data-ag-title="Talkin Blues"
+                          ng-click="newStickie( { color: 'blue' } )">
+                  </button>
+                    
+                  <button type="button"
+                      class="btn btn-default stickie-toolbar-btn stickie-pink"
+                          data-ag-title="Pinkie"
+                          ng-click="newStickie( { color: 'pink' } )">
+                  </button>
+                  <button type="button"
+                          class="btn btn-default stickie-toolbar-btn"
+                              ng-click="mail()">
+                      <span class="glyphicon glyphicon-envelope"></span>
+                  </button>
+                  <span class="glyphicon glyphicon-move"></span>
+                </span>
+            </div>
+       </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-dragdrop.min.js"></script>
+    <script src="js/stickies.js"></script>
+</body>
+<footer>
+</footer>
+</html>
