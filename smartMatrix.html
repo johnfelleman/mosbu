@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>Smarter Matrix</title>
+
+        <script src="js/angular.min.js"></script>
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-core-v1.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets-hall.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <!-- link href="starter-template.css" rel="stylesheet" -->
+
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <!-- script src="js/ie10-viewport-bug-workaround.js"></script -->
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+
+   <body ng-app="smartMatrix">
+        <div ng-controller="criteriaController">
+
+           <div id="headBox" class="ng-hide jumbotron" ng-hide="toolMode">
+              <h2>
+                 Smart Solution Matrix<br />
+                 <small>
+                    This prototype digital service helps identify the best
+                    purchase solution for a set of needs.
+                 </small>
+              <h2>
+           </div> <!-- jumbotron -->
+
+           <div class="container">
+                   <div class="row">
+                      <div class="col-md-2">
+                          <div class="panel panel-default">
+                               <div class="panel-heading">
+                                 <h3 class="panel-title">Award Type</h3>
+                               </div> <!-- panel-heading -->
+                               <div ng-repeat="type in awardTypes">
+                                   <input type="checkbox"
+                                     ng-model="type.enabled"
+                                     ng-mouseover="updateForHover(type)"
+                                     ng-mouseleave="stopHovering(type)"
+                                     ng-change="updateForAwardType(type)">
+                                   {{type.label}}<br>
+                                   </input>
+                               </div>
+                          </div> <!-- panel-default -->
+                      </div> <!-- col-md-2 -->
+                      <div class="col-md-2">
+                          <div class="panel panel-default">
+                               <div class="panel-heading">
+                                 <h3 class="panel-title">Contract Type</h3>
+                               </div> <!-- panel-heading -->
+                               <div ng-repeat="type in contractTypes">
+                                   <input type="checkbox">
+                                   {{type.label}}<br>
+                                   </input>
+                               </div>
+                          </div> <!-- panel-default -->
+                      </div> <!-- col-md-2 -->
+                      <div class="col-md-2">
+                          <div class="panel panel-default">
+                               <div class="panel-heading">
+                                 <h3 class="panel-title">Purchasing Agency</h3>
+                               </div> <!-- panel-heading -->
+                               <select ng-model="primaryCriterion"
+                                    ng-options="opt as opt.label for opt in agencies">
+                               </select>
+                          </div> <!-- panel-default -->
+                      </div> <!-- col-md-2 -->
+                      <div class="col-md-2">
+                          <div class="panel panel-default">
+                               <div class="panel-heading">
+                                 <h3 class="panel-title">PSC</h3>
+                               </div> <!-- panel-heading -->
+                               <input type="text" data-provide="typeahead"
+                                 data-source='[
+                                               "PSC 0001",
+                                               "PSC 0001",
+                                               "PSC 0001",
+                                               "PSC 0001",
+                                               ]'></input>
+                               <div class="panel-heading">
+                                 <h3 class="panel-title">NAICS</h3>
+                               </div> <!-- panel-heading -->
+                               <input type="text" data-provide="typeahead"
+                                 data-source='[
+                                               "0004",
+                                               "0006",
+                                               "0005",
+                                               "0007",
+                                               ]'></input>
+                          </div> <!-- panel-default -->
+                      </div> <!-- col-md-2 -->
+                   </div> <!--class="row"> -->
+                   <div class="panel panel-default">
+                       <div class="panel-heading">
+                         <h3 class="panel-title">Recommendations</h3>
+                       </div> <!-- panel-heading -->
+                       <div ng-repeat="solution in solutionList">
+                          <div class="ng-hide" ng-show="solution.show">
+                              <div class="row" ng-style="solution.style">
+                                  <div class="col-md-2">
+                                      {{solution.item.name}}
+                                      </span>
+                                  </div>
+                                  <div class="col-md-2">
+                                      <a href="{{solution.item.link}}">
+                                         {{solution.item.linkName}}
+                                      </a>
+                                  </div>
+                                  <div class="col-md-2">
+                                      {{solution.item.expiration}}
+                                  </div>
+                              </div>
+                          </div>
+                       </div>
+                   </div> <!-- panel-default -->
+           </div> <!-- class="container" -->
+       <div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/smartMatrix.js"></script>
+</body>
+<footer>
+</footer>
+</html>
