@@ -138,6 +138,12 @@ function SimData() {
     });
 };
 
+if (window.indexedDB) {
+    var request = window.indexedDB.open("MyTestDatabase", 3);
+} else {
+    alert('indexedDB is not supported');
+}
+
 angular.module('smartMatrix', []).
             controller('criteriaController', function($scope) {
 
@@ -160,14 +166,17 @@ angular.module('smartMatrix', []).
        };
     });
 
-    $scope.updateForAwardType = function(type) {
-       // alert (type.value + ': ' + type.enabled);
-       // var state = '';
-       // angular.forEach($scope.awardTypes, function(award) {
-          // state += award.value + ': ' + award.enabled + '\n';
-       // });
-       // alert(state);
 
+    function anyRecommendations() {
+       var any = false;
+       angular.forEach($scope.solutionList, function(solution) {
+          if (solution.show || solution.hover)
+             any = true;
+       });
+    return any;
+    };
+
+    $scope.updateForAwardType = function(type) {
        angular.forEach($scope.solutionList, function(solution) {
            angular.forEach(solution.item.awardTypes, function(award) {
                if (award === type.value) {
@@ -177,6 +186,7 @@ angular.module('smartMatrix', []).
            solution.show = (solution.matchingSolutionTypes > 0);
            });
        });
+    $scope.showRecommendations = anyRecommendations();
     };
 
     $scope.updateForHover = function(type) {
@@ -190,6 +200,7 @@ angular.module('smartMatrix', []).
                }
            });
        });
+    $scope.showRecommendations = anyRecommendations();
     };
 
     $scope.stopHovering = function(type) {
@@ -198,5 +209,6 @@ angular.module('smartMatrix', []).
            solution.style = {};
            solution.show = (solution.matchingSolutionTypes > 0);
        });
+    $scope.showRecommendations = anyRecommendations();
     };
 });
