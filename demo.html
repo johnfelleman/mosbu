@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>Smarter Matrix</title>
+
+        <script src="js/angular.min.js"></script>
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-core-v1.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets-hall.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <!-- link href="starter-template.css" rel="stylesheet" -->
+
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <!-- script src="js/ie10-viewport-bug-workaround.js"></script -->
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+
+   <body ng-app="caposWidgets">
+        <div ng-controller="tableViewController">
+
+           <div id="headBox" class="ng-hide jumbotron" ng-hide="toolMode">
+              <h2>
+                 Smart Solution Matrix<br />
+                 <small>
+                    This prototype digital service helps identify the best
+                    purchase solution for a set of needs.
+                 </small>
+              <h2>
+           </div> <!-- jumbotron -->
+
+           <div><h2>debug area</h2>
+           table.visible = {{table.visible}}
+           table.title = {{table.title}}
+           panel.visible = {{panel.visible}}
+           panel.title = {{panel.title}}
+
+           </div>
+           <cos-panel header="sample1"></cos-panel>
+           <cos-panel header="sample2"></cos-panel>
+           <cos-panel header="sample3"></cos-panel>
+           <cos-table-view table="table1"></cos-table-view>
+           <cos-checkbox-list checkbox-list="checkbox1"></cos-checkbox-list>
+
+       <div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/typeahead.jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/capOsWidgets.js"></script>
+</body>
+<footer>
+</footer>
+</html>
