@@ -43,27 +43,30 @@
 
        <div class="panel panel-default" ng-controller="searchController">
           <div class="panel-heading">Look up an opportunity</div>
-          <div class="well well-lg">
-              Pick some stuff.
+              <div class="well well-lg">
+                  <p>Pick some stuff.</p>
+                  <table class="table">
+                      <tr ng-repeat="picklist in picklists">
+                          <td>{{picklist.name}} ({{picklist.entries.length}})</td>
+                          <td><input type="picklist.name"
+                                    ng-model="picklist.search"
+                                    placeholder={{picklist.name}}></td>
+                      </tr>
+                  </table>
+              </div>
+          <div ng-repeat="opportunity in opportunityList |
+                   filter: {model: 'opportunities.opportunity'} |
+                   filter: { fields: { naics: picklists.naics.search }} |
+                   filter: { fields: { place_of_performance_state: picklists.place_of_performance_state.search }} |
+                   filter: { fields: { place_of_performance_city: picklists.place_of_performance_city.search }} |
+                   limitTo: 100"> 
+            <p>Agency: {{selectedAgency}}, NAICS: {{opportunity.fields.naics}}</p>
+            <p>
+            Place of Performance :
+                {{opportunity.fields.place_of_performance_city}}, 
+                {{opportunity.fields.place_of_performance_state}}
+            </p>
           </div>
-          <ul>
-            <li ng-repeat="opportunity in opportunityList |
-                    filter:{ 'new_requirement': 'Option'} |
-                    filter:{ 'model':'opportunities.office'} |
-                    filter:{ 'place_of_performance_state':'DC'} |
-                    filter:{ 'agency':'GSA'} ">
-            type = {{opportunity.model}}
-            </li>
-          </ul>
-          <ul>
-             <li ng-repeat='opportunity in opportunityList | filter:{ "model":"opportunities.opportunity"} '>
-                 <ul>
-                    <li ng-repeat="(field,value) in opportunity.fields">
-                        {{field}} = {{value}}
-                    </li>
-                 </ul>
-              </li>
-           </ul>
        </div>
 
     <!-- Bootstrap core JavaScript
