@@ -3,11 +3,14 @@ var opportunityModule = angular.module('opportunityViewer', []);
 function escapeRegExp(string){
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 }
-function hasNaics(opportunity) {
-    return (opportunity.fields.naics !== "");
+
+// TODO: try building all the indices on the fly
+
+function createFilterLists(objectArray, indices, depth) {
+
 }
 
-function createFilterLists(objectArray, interiorProperty, picklistsArray) {
+function createFilterLists(objectArray, interiorProperty, picklistsArray, searchStrings) {
     angular.forEach(objectArray, function(item, key, obj) {
         if (item.model === 'opportunities.opportunity') {
             angular.forEach(picklistsArray, function(picklist, idx) {
@@ -34,9 +37,15 @@ function createFilterLists(objectArray, interiorProperty, picklistsArray) {
 }
 
 opportunityModule.controller('searchController', function ($scope) {
+    $scope.stopnow = function() {
+        console.log('Search patterns:\n');
+        angular.forEach($scope.searchPatterns, function(item,key) {
+            console.log('\t' + key + ': ' + item + '\n');
+        });
+    };
     $scope.opportunityList = opportunities;
     $scope.selectedAgency = 'GSA';
-    $scope.picklists = [
+    var picklists = [
         {name: 'naics', entries:[]},
         {name: 'agency', entries:[]},
         {name: 'award_status', entries:[]},
@@ -44,11 +53,13 @@ opportunityModule.controller('searchController', function ($scope) {
         {name: 'place_of_performance_state', entries:[]},
         {name: 'place_of_performance_city', entries:[]}
     ];
-    createFilterLists(opportunities, 'fields', $scope.picklists);
-    $scope.naics = '';
-    var regex;
-    $scope.$watch('naics', function (value) {
-        regex = new RegExp('\\b' + escapeRegExp(value), 'i');
+    createFilterLists(opportunities, 'fields', picklists);
+    var searchPatterns = {};
+    $scope.searchPatterns = searchPatterns;
+
+    angular.forEach(picklists, function(list) {
+        $scope.searchPatterns[list.name] = '';
     });
+    $scope.picklists = picklists;
 });
 
