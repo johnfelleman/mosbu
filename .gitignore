@@ -1,0 +1,8 @@
+junk.*
+*.swp
+.DS_Store
+*.junk
+foo.*
+*.temp
+*.zip
+manifest.json
