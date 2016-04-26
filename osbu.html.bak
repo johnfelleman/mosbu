@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>No business is small</title>
+
+        <script src="js/angular.min.js"></script>
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-core-v1.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets.css" rel="stylesheet">
+        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets-hall.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <!-- link href="starter-template.css" rel="stylesheet" -->
+
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <!-- script src="js/ie10-viewport-bug-workaround.js"></script -->
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+
+   <body ng-app="opportunityViewer">
+       <div id="headBox" class="jumbotron">
+          <h2>
+             GSA Office of Small Business Opportunity<br />
+             <small>
+                Prototype digital service helps find small businesses find government solicitations.
+             </small>
+          </h2>
+       </div> <!-- jumbotron -->
+
+       <div class="panel panel-default" ng-controller="searchController">
+          <div class="panel-heading">
+          <table><tr>
+            <td>About <input type="checkbox" ng-model="showAbout"></td>
+            <td>Help <input type="checkbox" ng-model="showHelp"></td>
+            <td>To-do Items <input type="checkbox" ng-model="showToDo"></td>
+            <td>Options <input type="checkbox" ng-model="showOptions"></td>
+          </tr></table>
+          <div ng-if="showHelp">
+            This prototype will help you find small business opportunities published by various government
+            agencies.
+            It should be largely self-explanatory. The numbers next to the various fields show how many
+            different values exist for that field. Typing full or partial text or numbers in the
+            search field will narrow the results to those entries that match. You can filter on
+            multiple fields at one time. 
+          </div>
+          <div ng-if="showToDo">
+            <ol>
+                <li>Dynamically report # of choices, # of records</li>
+            </ol>
+          </div>
+          <div ng-if="showOptions">
+            <ul>
+                <li>Picklist size limit <input type="number" ng-model="maxPicklistCount"></li>
+            </ol>
+          </div>
+          </div>
+             <div class="well well-lg">
+                <table class="table">
+                   <tr ng-repeat="picklist in picklists">
+                      <td>{{picklist.name}} ({{picklist.entries.length}})</td>
+                        <td ng-if=
+                           "picklist.entries.length > maxPicklistCount">
+                            <input type="picklist.name"
+                               ng-model="$parent.searchPatterns[picklist.name]"
+                               placeholder={{picklist.name}}
+                        </td>
+                        <td ng-if="picklist.entries.length <
+                                  maxPicklistCount">
+                          <select ng-model="$parent.searchPatterns[picklist.name]"
+                              ng-options="entry.value as entry.value + ' (' + entry.count + ')' for entry in picklist.entries">
+                          </select>
+                         </td>
+                      </tr>
+                  </table>
+              </div>
+          <div ng-repeat="opportunity in opportunityList |
+                   filter: {model: 'opportunities.opportunity'} |
+                   filter: {fields: { naics: searchPatterns.naics }} |
+                   filter: {fields: { agency: searchPatterns.agency }} |
+                   filter: {fields: { award_status: searchPatterns.award_status }} |
+                   filter: {fields: { estimated_fiscal_year: searchPatterns.estimated_fiscal_year }} |
+                   filter: {fields: { place_of_performance_city: searchPatterns.place_of_performance_city }} |
+                   filter: {fields: { place_of_performance_state: searchPatterns.place_of_performance_state }} |
+                   limitTo: 100"> 
+            <div class="well well-sm">
+                <div ng-class="{ 'bg-warning': $odd, 'bg-success': $even }">
+                    <p>Agency:{{opportunity.fields.agency}} , NAICS: {{opportunity.fields.naics}}</p>
+                    <p>
+                    Place of Performance:
+                        {{opportunity.fields.place_of_performance_city}}, 
+                        {{opportunity.fields.place_of_performance_state}}
+                    </p>
+                    <p>
+                        Estimated Fiscal Quarter: {{opportunity.fields.estimated_fiscal_year_quarter}},
+                        quarter, {{opportunity.fields.estimated_fiscal_year}},
+                        Award Status: {{opportunity.fields.award_status}}
+                    </p>
+                    <p>Show More
+                        <input type="checkbox"
+                            ng-model="opportunity.fields.showMore"
+                            ng-init="opportunity.fields.showMore = false"
+                        >
+                    </p>
+                    <div ng-if="opportunity.fields.showMore">
+                        <table>
+                            <tr ng-repeat="field in [
+                                        'point_of_contact_name',
+                                        'point_of_contact_phone',
+                                        'point_of_contact_email',
+                                        'fedbizopps_link',
+                                        'competition_strategy',
+                                        'new_requirement',
+                                        'published',
+                                        'description',
+                                        'contract_type',
+                                        'socioeconomic',
+                                        'additional_information'
+                                    ]">
+                                <td>{{field}}</td>
+                                <td>{{opportunity.fields[field]}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+          </div>
+       </div>
+                            <div ng-hide="true">
+                            Add these fields!
+                            "estimated_solicitation_date", "osbu_advisor", "incumbent_name", "procurement_method", "including_options", "funding_agency", "dollar_value_max", "dollar_value_min", "delivery_order_value", "office" 
+                            </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/opportunities.js"></script>
+    <script src="js/opportunity_viewer.js"></script>
+</body>
+<footer>
+</footer>
+</html>

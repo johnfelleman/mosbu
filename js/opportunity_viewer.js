@@ -37,21 +37,23 @@ function createFilterLists(objectArray, interiorProperty, picklistsArray, search
 }
 
 opportunityModule.controller('searchController', function ($scope) {
-    $scope.stopnow = function() {
-        console.log('Search patterns:\n');
-        angular.forEach($scope.searchPatterns, function(item,key) {
-            console.log('\t' + key + ': ' + item + '\n');
-        });
-    };
     $scope.opportunityList = opportunities;
-    $scope.selectedAgency = 'GSA';
+    $scope.maxPicklistCount = 20;
+    $scope.fields = {
+        naics: { friendly: 'NAICS Code', entries:[]},
+        agency: {friendly: 'Awarding Agency', entries:[]},
+        award_status: { friendly: 'Award Status', entries:[]},
+        estimated_fiscal_year: { friendly: 'Estimated Fiscal Year', entries:[]},
+        place_of_performance_state: { friendly: 'State', entries:[]},
+        place_of_performance_city: { friendly: 'City', entries:[]}
+    };
     var picklists = [
-        {name: 'naics', entries:[]},
-        {name: 'agency', entries:[]},
-        {name: 'award_status', entries:[]},
-        {name: 'estimated_fiscal_year', entries:[]},
-        {name: 'place_of_performance_state', entries:[]},
-        {name: 'place_of_performance_city', entries:[]}
+        {name: 'naics', friendly: 'NAICS Code', entries:[]},
+        {name: 'agency', friendly: 'NAICS Code', entries:[]},
+        {name: 'award_status', friendly: 'NAICS Code', entries:[]},
+        {name: 'estimated_fiscal_year', friendly: 'NAICS Code', entries:[]},
+        {name: 'place_of_performance_state', friendly: 'NAICS Code', entries:[]},
+        {name: 'place_of_performance_city', friendly: 'NAICS Code', entries:[]}
     ];
     createFilterLists(opportunities, 'fields', picklists);
     var searchPatterns = {};

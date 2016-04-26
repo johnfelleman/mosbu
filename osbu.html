@@ -1,60 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" href="../../favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
 
-        <title>No business is small</title>
+  <title>No business is small</title>
 
-        <script src="js/angular.min.js"></script>
-        <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-core-v1.css" rel="stylesheet">
-        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets.css" rel="stylesheet">
-        <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets-hall.css" rel="stylesheet">
+  <script src="js/angular.min.js"></script>
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/vendor.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
-        <!-- link href="starter-template.css" rel="stylesheet" -->
+  <!-- Bootstrap core CSS -->
+  <!--
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-core-v1.css" rel="stylesheet">
+  <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets.css" rel="stylesheet">
+  <link href="https://hallways.cap.gsa.gov/sites/all/themes/bootstrap/css/cap-widgets-hall.css" rel="stylesheet">
+  -->
+  <!-- Custom styles for this template -->
+  <!-- link href="starter-template.css" rel="stylesheet" -->
 
 
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <!-- script src="js/ie10-viewport-bug-workaround.js"></script -->
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <!-- script src="js/ie10-viewport-bug-workaround.js"></script -->
 
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-      <![endif]-->
-   </head>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script
+    src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
 
-   <body ng-app="opportunityViewer">
-       <div id="headBox" class="jumbotron">
-          <h2>
-             GSA Office of Small Business Opportunity<br />
-             <small>
-                Prototype digital service helps find small businesses find government solicitations.
-             </small>
-          </h2>
-       </div> <!-- jumbotron -->
+<body ng-app="opportunityViewer">
 
-       <div class="panel panel-default" ng-controller="searchController">
-          <div class="panel-heading">Look up an opportunity</div>
-              <div class="well well-lg">
-                  <table class="table">
-                      <tr ng-repeat="picklist in picklists">
-                          <td>{{picklist.name}} ({{picklist.entries.length}})</td>
-                          <td><input type="picklist.name"
-                                    ng-model="$parent.searchPatterns[picklist.name]"
-                                    placeholder={{picklist.name}}
-                          </td>
-                      </tr>
-                  </table>
+
+<nav class="navbar navbar-default navbar-fixed-top shadow">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed"
+              data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+              aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+
+      <a class="navbar-brand" href="#">
+        <i class="fa fa-compass fa-4x logo" aria-hidden="true"></i>
+        <span style="font-family:Helvetica Neue Ultralight; font-size:1.2em;">Acquisition</span>
+        <span
+          style="font-family:Helvetica Neue Thin; font-size:1.2em;">Gateway</span>
+
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+        <!-- demo -->
+        <!--
+        <li>
+          <a href="#demo">Demo</a>
+        </li>
+        -->
+
+      </ul>
+
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+
+  <!-- info bar -->
+  <div class="infobar">
+    <ol class="breadcrumb">
+      <li>Home</li>
+      <li>Forecast - Small Business Opportunity</li>
+    </ol>
+  </div>
+
+</nav>
+
+<div class="container-fluid" ng-controller="searchController">
+
+  <div class="row">
+
+    <div class="col-xs-12 col-sm-4">
+
+      <h3>Forecast</h3>
+      <p style="margin-bottom:10px;">Small Business Opportunity</p>
+
+      <div class="clearfix"></div>
+
+      <div class="panel panel-default shadow">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <i class="fa fa-search fa-lg" aria-hidden="true"></i>
+            <span class="title-text">Search</span>
+          </div>
+        </div>
+        <div class="panel-body">
+
+
+          <form>
+
+            <div ng-repeat="picklist in picklists">
+
+              <div class="form-group" ng-if=
+                       "picklist.entries.length > maxPicklistCount">
+                <label for="">{{fields[picklist.name].friendly}}
+                  ({{picklist.entries.length}})</label>
+                <input type="picklist.name" class="form-control" id=""
+                       ng-model="$parent.searchPatterns[picklist.name]">
               </div>
-          <div ng-repeat="opportunity in opportunityList |
+              <div class="form-group" ng-if=
+                       "picklist.entries.length <= maxPicklistCount">
+                  <label for="{{$parent.searchPatterns[picklist.name]">
+                      {{fields[picklist.name].friendly}} ({{picklist.entries.length}})
+                  </label>
+                  <select ng-model="$parent.searchPatterns[picklist.name]"
+                      ng-options="entry.value as entry.value +
+                          ' (' + entry.count +
+                          ')' for entry in picklist.entries">
+                  </select>
+              </div>
+
+
+            </div>
+
+          </form>
+
+
+        </div>
+        <div class="panel-footer no-padding">
+          <div class="pull-right">
+            <button class="btn btn-xs btn-default outline"
+                    title="Example button message">Clear
+            </button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+
+      <div class="panel panel-default shadow">
+
+        <div class="panel-heading">
+          <div class="panel-title">
+            <label title="Example button message">
+              <button class="btn btn-transparent" title="Example button message"
+                      ng-click="showHelp = !showHelp">
+                <i class="fa fa-lg fa-question" aria-hidden="true"></i>
+              </button>
+              <span class="title-text">Help</span>
+
+            </label>
+
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+        <div class="panel-body" ng-if="showHelp">
+
+          This prototype will help you find small business opportunities
+          published
+          by various government
+          agencies.
+          It should be largely self-explanatory. The numbers next to the various
+          fields show how many
+          different values exist for that field. Typing full or partial text or
+          numbers in the
+          search field will narrow the results to those entries that match. You
+          can filter on
+          multiple fields at one time.
+
+        </div>
+
+      </div>
+      <div class="panel panel-default shadow">
+
+        <div class="panel-heading">
+          <div class="panel-title">
+            <label title="Example button message">
+              <button class="btn btn-transparent" title="Example button message"
+                      ng-click="showOptions = !showOptions">
+                <i class="fa fa-lg fa-list" aria-hidden="true"></i>
+              </button>
+              <span class="title-text">Options</span>
+
+            </label>
+
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+        <div class="panel-body" ng-if="showOptions">
+            <ul>
+                <li>Picklist size limit <input type="number"
+                        ng-model="maxPicklistCount"></li>
+                <li>
+                    <ul> Field Settings
+                        <li ng-repeat="field in fields">
+                            <input type="text"
+                                ng-model="fields.friendly"
+                                placeholder="{{field.friendly}}">
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+      </div>
+
+
+      <div class="panel panel-default shadow">
+
+        <div class="panel-heading">
+          <div class="panel-title">
+            <label title="Example button message">
+              <button class="btn btn-transparent" title="Example button message"
+                      ng-click="showToDo = !showToDo">
+                <i class="fa fa-lg fa-list" aria-hidden="true"></i>
+              </button>
+              <span class="title-text">To Do</span>
+
+            </label>
+
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div class="panel-body" ng-if="showToDo">
+
+          <ol>
+            <li>Dynamically update the various numbers based on selected filters, and automatically suppress choices that are no longer valide.</li>
+            <li>Make the option setting actually work.</li>
+          </ol>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="col-xs-12 col-sm-8">
+
+      <div>
+        <div class="pull-left">
+          <h3>Search Results</h3>
+          <p>Criteria: [criteria list]</p>
+        </div>
+
+        <div class="pull-right">
+          <a class="btn btn-xs btn-default outline shadow" href="#"
+             title="Example link message">Export</a>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div ng-repeat="opportunity in opportunityList |
                    filter: {model: 'opportunities.opportunity'} |
                    filter: {fields: { naics: searchPatterns.naics }} |
                    filter: {fields: { agency: searchPatterns.agency }} |
@@ -62,23 +276,95 @@
                    filter: {fields: { estimated_fiscal_year: searchPatterns.estimated_fiscal_year }} |
                    filter: {fields: { place_of_performance_city: searchPatterns.place_of_performance_city }} |
                    filter: {fields: { place_of_performance_state: searchPatterns.place_of_performance_state }} |
-                   limitTo: 100"> 
-            <div class="well well-sm">
-                <div ng-class="{ 'bg-warning': $odd, 'bg-success': $even }">
-                    <p>Agency:{{opportunity.fields.agency}} , NAICS: {{opportunity.fields.naics}}</p>
-                    <p>
-                    Place of Performance:
-                        {{opportunity.fields.place_of_performance_city}}, 
-                        {{opportunity.fields.place_of_performance_state}}
-                    </p>
-                    <p>
-                        Estimated Fiscal Year: {{opportunity.fields.estimated_fiscal_year}},
-                        Award Status: {{opportunity.fields.award_status}}
-                    </p>
-                </div>
+                   limitTo: 100">
+
+
+        <div class="panel shadow"
+             ng-class="{ 'panel-default': $odd, 'panel-primary': $even }"
+             ng-init="opportunity.fields.showMore = false">
+          <div class="panel-heading">
+            <div class="panel-title">
+              <span class="title-text">{{opportunity.fields.description}}</span>
             </div>
           </div>
-       </div>
+          <div class="panel-body">
+
+            <div class="col-sm-6"><label>Agency:</label>
+              {{opportunity.fields.agency}}
+            </div>
+            <div class="col-sm-6"><label>NAICS:</label>
+              {{opportunity.fields.naics}}
+            </div>
+            <div class="col-sm-6"><label>Place of Performance:</label>
+              {{opportunity.fields.place_of_performance_city}},
+              {{opportunity.fields.place_of_performance_state}}
+            </div>
+            <div class="col-sm-6"><label>Estimated Fiscal Quarter:</label>
+              {{opportunity.fields.estimated_fiscal_year_quarter}}
+            </div>
+            <div class="col-sm-6"><label>Quarter:</label>
+              {{opportunity.fields.estimated_fiscal_year}}
+            </div>
+            <div class="col-sm-6"><label>Award Status:</label>
+              {{opportunity.fields.award_status}}
+            </div>
+
+
+            <div ng-if="opportunity.fields.showMore">
+
+              <div class="col-sm-6" ng-repeat="field in [
+                                        'point_of_contact_name',
+                                        'point_of_contact_phone',
+                                        'point_of_contact_email',
+                                        'fedbizopps_link',
+                                        'competition_strategy',
+                                        'new_requirement',
+                                        'published',
+                                        'description',
+                                        'contract_type',
+                                        'socioeconomic',
+                                        'additional_information'
+                                    ]">
+                <label>{{field}}: </label>
+                {{opportunity.fields[field]}}
+              </div>
+
+            </div>
+
+
+          </div>
+
+          <div class="panel-footer no-padding">
+          <span class="pull-right">
+
+            <button class="btn btn-xs btn-default outline"
+                    title="Example button message"
+                    ng-click="opportunity.fields.showMore = !opportunity.fields.showMore">
+              Show <span ng-if="!opportunity.fields.showMore">More</span><span
+              ng-if="opportunity.fields.showMore">Less</span>
+            </button>
+
+            <button class="btn btn-xs btn-default outline"
+                    title="Example button message"
+                    ng-click="opportunity.fields.showMore = !opportunity.fields.showMore">
+              Details
+            </button>
+
+
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div ng-hide="true">
+      Add these fields!
+      "estimated_solicitation_date", "osbu_advisor", "incumbent_name",
+      "procurement_method", "including_options", "funding_agency",
+      "dollar_value_max", "dollar_value_min", "delivery_order_value", "office"
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -88,6 +374,8 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/opportunities.js"></script>
     <script src="js/opportunity_viewer.js"></script>
+  </div>
+</div>
 </body>
 <footer>
 </footer>
